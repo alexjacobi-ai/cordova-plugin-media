@@ -71,6 +71,12 @@ Media.get = function (id) {
     return mediaObjects[id];
 };
 
+Media.prototype.setFollowUp = function(url) {
+    console.log("In FollowUp Start")
+    exec(null, null, "Media", "setFollowUp", [this.id, url])
+    console.log("In FollowUp End")
+}
+
 /**
  * Start or resume playing audio file.
  */

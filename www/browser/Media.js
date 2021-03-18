@@ -110,6 +110,22 @@ Media.MEDIA_PAUSED = 3;
 Media.MEDIA_STOPPED = 4;
 Media.MEDIA_MSG = ['None', 'Starting', 'Running', 'Paused', 'Stopped'];
 
+Media.prototype.setFollowUp = function(url) {
+    // if Media was released, then node will be null and we need to create it again
+    if (!this.node) {
+        try {
+            this.node = createNode(this);
+        } catch (err) {
+            Media.onStatus(this.id, Media.MEDIA_ERROR, {
+                code: MediaError.MEDIA_ERR_ABORTED
+            });
+        }
+    }
+
+    this.node.setFollowUp(url);
+
+}
+
 /**
  * Start or resume playing audio file.
  */
